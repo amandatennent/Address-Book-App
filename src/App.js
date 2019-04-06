@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import AddressMap from './components/AddressMap'
+import AddressList from './components/AddressList'
+import AppFooter from './components/AppFooter';
+import AppHeader from './components/AppHeader';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App h-100">
+                <AppHeader />
+                <div className="container-fluid h-100">
+                    <div className="row h-100 m-0">
+                        <AddressList />
+                        <AddressMap />
+                    </div>
+                </div>
+                <AppFooter />
+            </div>
+        );
+    }
 }
 
 export default App;

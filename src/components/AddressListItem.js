@@ -10,7 +10,7 @@ class AddressListItem extends React.Component {
             <li className="nav-item">
                 <a className="nav-link" href="#">
                     <img src={mapPointer} alt="Map Pointer" />
-                    Orders
+                    Name
                 </a>
         </li>
         );

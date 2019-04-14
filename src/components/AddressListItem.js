@@ -3,14 +3,19 @@
 
 import mapPointer from '../images/mappointer.svg';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class AddressListItem extends React.Component {
+    static propTypes = {
+        name: PropTypes.string
+    }
+
     render() {
         return(
             <li className="nav-item">
                 <a className="nav-link" href="#">
                     <img src={mapPointer} alt="Map Pointer" />
-                    Name
+                    {this.props.name}
                 </a>
         </li>
         );

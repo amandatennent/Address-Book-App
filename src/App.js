@@ -34,7 +34,7 @@ class App extends Component {
                 <AppHeader />
                 <div className="container-fluid h-100">
                     <div className="row h-100 m-0">
-                        <AddressList />
+                        <AddressList markers={this.state.markers} />
                         <AddressMap
                             markers={this.state.markers}
                             infoWindow={this.state.infoWindow}

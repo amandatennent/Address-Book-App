@@ -20,6 +20,8 @@ class AddNewMarkerModal extends React.Component {
 
         this.props.addNewMarker(marker);
         document.getElementById('add_new_marker_form').reset();
+        // eslint-disable-next-line no-undef
+        $('#exampleModal').modal('toggle');
     };
 
     render() {

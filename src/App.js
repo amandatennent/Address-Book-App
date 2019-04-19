@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
-import AddressMap from './components/AddressMap'
-import AddressList from './components/AddressList'
+import AddressMap from './components/AddressMap';
+import AddressList from './components/AddressList';
 import AppFooter from './components/AppFooter';
 import AppHeader from './components/AppHeader';
 import sampleMarkers from './sample-markers';
+import AddNewMarkerModal from './components/AddNewMarkerModal';
 
 class App extends Component {
     state = {
@@ -12,25 +13,26 @@ class App extends Component {
         infoWindow: {
             showingInfoWindow: false,
             activeMarker: {},
-            selectedPlace: {}
-        }
-    }
-
-    loadSampleMarkers = () => {
-        this.setState({ markers: sampleMarkers });
-    }
+            selectedPlace: {},
+        },
+    };
 
     componentDidMount() {
         this.loadSampleMarkers();
     }
 
+    loadSampleMarkers = () => {
+        this.setState({ markers: sampleMarkers });
+    };
+
     updateInfoWindow = updatedInfoWindow => {
         this.setState({ infoWindow: updatedInfoWindow });
-    }
+    };
 
     render() {
         return (
             <div className="App h-100">
+                <AddNewMarkerModal />
                 <AppHeader />
                 <div className="container-fluid h-100">
                     <div className="row h-100 m-0">

@@ -16,7 +16,20 @@ class AddressMap extends React.Component {
         updateInfoWindow: PropTypes.func,
     };
 
-    onMarkerClick = (props, marker, e) => {
+    loadAutoComplete = () => {
+        const input = document.getElementById('map_address');
+        const latInput = document.getElementById('select_place_lat');
+        const lngInput = document.getElementById('select_place_lng');
+        const dropdown = new window.google.maps.places.Autocomplete(input);
+
+        dropdown.addListener('place_changed', () => {
+            const place = dropdown.getPlace();
+            latInput.value = place.geometry.location.lat();
+            lngInput.value = place.geometry.location.lng();
+        });
+    };
+
+    onMarkerClick = (props, marker) => {
         const newInfoWindow = {
             showingInfoWindow: true,
             selectedPlace: props,
@@ -40,11 +53,19 @@ class AddressMap extends React.Component {
 
     render() {
         return (
-            <Map id="my_map" google={this.props.google} zoom={12} className="h-100 col-md-9" initialCenter={{ lat: -37.8136, lng: 144.9631 }}>
+            <Map
+                id="my_map"
+                google={this.props.google}
+                zoom={12}
+                className="h-100 col-md-9"
+                initialCenter={{ lat: -37.8136, lng: 144.9631 }}
+                onReady={this.loadAutoComplete}
+            >
                 {Object.keys(this.props.markers).map(this.renderMarker)}
                 <InfoWindow
                     marker={this.props.infoWindow.activeMarker}
                     visible={this.props.infoWindow.showingInfoWindow}
+                >
                     <div>
                         <h6>{this.props.infoWindow.selectedPlace.name}</h6>
                     </div>

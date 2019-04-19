@@ -1,13 +1,26 @@
-/* eslint-disable no-undef */
 import React from 'react';
 
 class AddNewMarkerModal extends React.Component {
-    componentDidMount() {
-        console.info('Running compononent did mount on AddNewMarkerModal');
-        // const input = document.getElementById('address');
+    preventEnter = e => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+        }
+    };
 
-        // if (!input) return;
-    }
+    createMarker = event => {
+        event.preventDefault();
+
+        const marker = {
+            name: event.target.marker_name.value,
+            position: {
+                lat: event.target.select_place_lat.value,
+                lng: event.target.select_place_lng.value,
+            },
+        };
+
+        this.props.addNewMarker(marker);
+        document.getElementById('add_new_marker_form').reset();
+    };
 
     render() {
         return (
@@ -34,36 +47,47 @@ class AddNewMarkerModal extends React.Component {
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form>
+                        <form
+                            id="add_new_marker_form"
+                            onSubmit={this.createMarker}
+                        >
                             <div className="modal-body">
-                                <label htmlFor="address">
-                                    Address
+                                <label
+                                    htmlFor="marker_name"
+                                    className="input-group mb-3"
+                                >
+                                    Name
                                     <input
-                                        className="input-group mb-3"
                                         type="text"
-                                        id="address"
-                                        name="location[address]"
-                                        placeholder="Enter a location"
+                                        name="marker_name"
+                                        id="marker_name"
+                                        className="input-group mb-3"
                                     />
                                 </label>
-                                <label htmlFor="lng">
-                                    Address Longitude
+                                <label
+                                    htmlFor="map_address"
+                                    className="input-group mb-3"
+                                >
+                                    Location
                                     <input
-                                        className="input-group mb-3"
                                         type="text"
-                                        id="lng"
-                                        name="location[coordinates][0]"
+                                        name="map_address"
+                                        id="map_address"
+                                        className="input-group mb-3"
+                                        onKeyDown={this.preventEnter}
                                     />
                                 </label>
-                                <label htmlFor="lat">
-                                    Address Latitude
-                                    <input
-                                        className="input-group mb-3"
-                                        type="text"
-                                        id="lat"
-                                        name="location[coordinates][0]"
-                                    />
-                                </label>
+                                <input
+                                    type="text"
+                                    name="select_place_lat"
+                                    id="select_place_lat"
+                                />
+                                <input
+                                    type="text"
+                                    name="select_place_lng"
+                                    id="select_place_lng"
+                                    visibility="hidden"
+                                />
                             </div>
                             <div className="modal-footer">
                                 <button
@@ -74,10 +98,10 @@ class AddNewMarkerModal extends React.Component {
                                     Close
                                 </button>
                                 <button
-                                    type="button"
+                                    type="submit"
                                     className="btn btn-primary"
                                 >
-                                    Save changes
+                                    Add Marker
                                 </button>
                             </div>
                         </form>

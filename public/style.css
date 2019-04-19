@@ -16,3 +16,13 @@ footer {
     color: #343a40;
     text-decoration: none;
 }
+
+.pac-container {
+    /* To ensure the autocomplete drop down appears over the modal */
+    z-index: 1051;
+}
+
+#select_place_lng,
+#select_place_lat {
+    display: none;
+}

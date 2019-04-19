@@ -25,6 +25,13 @@ class App extends Component {
         this.setState({ markers: sampleMarkers });
     };
 
+    addNewMarker = marker => {
+        const markersObject = this.state.markers;
+        const markers = { ...markersObject };
+        markers[`marker${Date.now()}`] = marker;
+        this.setState({ markers });
+    };
+
     updateInfoWindow = updatedInfoWindow => {
         this.setState({ infoWindow: updatedInfoWindow });
     };
@@ -32,7 +39,7 @@ class App extends Component {
     render() {
         return (
             <div className="App h-100">
-                <AddNewMarkerModal />
+                <AddNewMarkerModal addNewMarker={this.addNewMarker} />
                 <AppHeader />
                 <div className="container-fluid h-100">
                     <div className="row h-100 m-0">

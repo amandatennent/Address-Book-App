@@ -16,43 +16,20 @@ class AddressMap extends React.Component {
         updateInfoWindow: PropTypes.func,
     };
 
-    loadAutocomplete = (mapProps, map) => {
-        console.info(mapProps, map);
-        const input = document.getElementById('autocomplete_address');
-        const latInput = document.getElementById('lat');
-        const lngInput = document.getElementById('lng');
+    loadAutoComplete = () => {
+        const input = document.getElementById('map_address');
+        const latInput = document.getElementById('select_place_lat');
+        const lngInput = document.getElementById('select_place_lng');
         const dropdown = new window.google.maps.places.Autocomplete(input);
-        console.info(dropdown);
+
         dropdown.addListener('place_changed', () => {
             const place = dropdown.getPlace();
             latInput.value = place.geometry.location.lat();
             lngInput.value = place.geometry.location.lng();
         });
-
-        input.on('keydown', e => {
-            if (e.keyCode === 13) e.preventDefault();
-        });
     };
 
-    loadAutocomplete = (mapProps, map) => {
-        console.info(mapProps, map);
-        const input = document.getElementById('autocomplete_address');
-        const latInput = document.getElementById('lat');
-        const lngInput = document.getElementById('lng');
-        const dropdown = new window.google.maps.places.Autocomplete(input);
-        console.info(dropdown);
-        dropdown.addListener('place_changed', () => {
-            const place = dropdown.getPlace();
-            latInput.value = place.geometry.location.lat();
-            lngInput.value = place.geometry.location.lng();
-        });
-
-        input.on('keydown', e => {
-            if (e.keyCode === 13) e.preventDefault();
-        });
-    };
-
-    onMarkerClick = (props, marker, e) => {
+    onMarkerClick = (props, marker) => {
         const newInfoWindow = {
             showingInfoWindow: true,
             selectedPlace: props,

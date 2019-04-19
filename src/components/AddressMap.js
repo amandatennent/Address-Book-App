@@ -6,31 +6,37 @@ class AddressMap extends React.Component {
     static propTypes = {
         markers: PropTypes.shape({
             name: PropTypes.string,
-            position: PropTypes.object
+            position: PropTypes.object,
         }),
         infoWindow: PropTypes.shape({
             showingInfoWindow: PropTypes.bool,
             activeMarker: PropTypes.object,
-            selectedPlace: PropTypes.object
+            selectedPlace: PropTypes.object,
         }),
-        updateInfoWindow: PropTypes.func
-    }
+        updateInfoWindow: PropTypes.func,
+    };
 
     onMarkerClick = (props, marker, e) => {
         const newInfoWindow = {
             showingInfoWindow: true,
             selectedPlace: props,
             activeMarker: marker,
-        }
+        };
         this.props.updateInfoWindow(newInfoWindow);
-    }
+    };
 
     renderMarker = key => {
         const marker = this.props.markers[key];
         return (
-            <Marker key={key} index={key} name={marker.name} position={marker.position} onClick={this.onMarkerClick} />
-        )
-    }
+            <Marker
+                key={key}
+                index={key}
+                name={marker.name}
+                position={marker.position}
+                onClick={this.onMarkerClick}
+            />
+        );
+    };
 
     render() {
         return (
@@ -38,16 +44,16 @@ class AddressMap extends React.Component {
                 {Object.keys(this.props.markers).map(this.renderMarker)}
                 <InfoWindow
                     marker={this.props.infoWindow.activeMarker}
-                    visible={this.props.infoWindow.showingInfoWindow}>
+                    visible={this.props.infoWindow.showingInfoWindow}
                     <div>
                         <h6>{this.props.infoWindow.selectedPlace.name}</h6>
                     </div>
                 </InfoWindow>
             </Map>
-        )
+        );
     }
 }
 
 export default GoogleApiWrapper({
-    apiKey: process.env.REACT_APP_MAP_KEY
+    apiKey: process.env.REACT_APP_MAP_KEY,
 })(AddressMap);

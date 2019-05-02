@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import {
+    Map,
+    GoogleApiWrapper,
+    Marker,
+    InfoWindow,
+    Polyline,
+} from 'google-maps-react';
 
 class AddressMap extends React.Component {
     static propTypes = {
@@ -52,6 +58,10 @@ class AddressMap extends React.Component {
     };
 
     render() {
+        const { markers } = this.props;
+        const coordinates = Object.keys(markers).map(
+            key => markers[key].position
+        );
         return (
             <Map
                 id="my_map"
@@ -61,7 +71,7 @@ class AddressMap extends React.Component {
                 initialCenter={{ lat: -37.8136, lng: 144.9631 }}
                 onReady={this.loadAutoComplete}
             >
-                {Object.keys(this.props.markers).map(this.renderMarker)}
+                {Object.keys(markers).map(this.renderMarker)}
                 <InfoWindow
                     marker={this.props.infoWindow.activeMarker}
                     visible={this.props.infoWindow.showingInfoWindow}
@@ -70,6 +80,7 @@ class AddressMap extends React.Component {
                         <h6>{this.props.infoWindow.selectedPlace.name}</h6>
                     </div>
                 </InfoWindow>
+                <Polyline path={coordinates} />
             </Map>
         );
     }

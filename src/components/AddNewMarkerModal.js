@@ -13,8 +13,8 @@ class AddNewMarkerModal extends React.Component {
         const marker = {
             name: event.target.marker_name.value,
             position: {
-                lat: event.target.select_place_lat.value,
-                lng: event.target.select_place_lng.value,
+                lat: Number(event.target.select_place_lat.value),
+                lng: Number(event.target.select_place_lng.value),
             },
         };
 
